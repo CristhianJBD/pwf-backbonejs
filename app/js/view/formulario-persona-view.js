@@ -14,7 +14,7 @@ var FormularioPersonaView = Backbone.View.extend({
      * @field
      */
     events: {
-        "click #guardar": "guardar",
+        "click #guardar": "guardar"
     },
 
     /**
@@ -38,6 +38,8 @@ var FormularioPersonaView = Backbone.View.extend({
         return this;
     },
 
+
+
     /**
      * Se encarga de añade el nuevo dato al collection que se encuentra en memoria.
      * @function
@@ -49,6 +51,21 @@ var FormularioPersonaView = Backbone.View.extend({
             data[this.name] = this.value;
         });
         var model = new PersonaModel(data);
-        this.collection.add(model);
+        model.save(null,{
+            success: function(model, response) {
+                alert("Se agregó correctamente!");
+
+            },
+            error: function(model, response) {
+                alert("Ha ocurrido un error!");
+            }
+
+        });
+
+
     }
+    
+
+
+
 });
