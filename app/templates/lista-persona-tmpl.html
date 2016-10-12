@@ -9,25 +9,49 @@
                 <th>Apellido</th>
                 <th>Alias</th>
                 <th>Teléfono</th>
-                <th>Email</th>
                 <th>Dirección</th>
+                <th>Email</th>
                 <th>Fecha de Creación</th>
                 <th>Fecha de Modificación</th>
+                <th>Acciones</th>
 
             </tr>
             </thead>
             <tbody>
                 <% _.forEach(collection, function(item){ %>
-                    <tr>
-                        <td><%=item.nombre %></td>
-                        <td><%=item.apellido %></td>
-                        <td><%=item.alias %></td>
-                        <td><%=item.telefono %></td>
-                        <td><%=item.email %></td>
-                        <td><%=item.direccion %></td>
-                        <td><%=item.fechacreacion %></td>
-                        <td><%=item.fechamodificacion  %></td>
+                <tr  data-id="<%=item.id%>">
+                        <td >
+                            <div type="text" id="<%=item.id%>nombre1" style.display = 'inline' > <%=item.nombre %> </div>
+                            <input name="nombre1" id="<%=item.id%>nombre" class="form-control" type="hidden"  value="<%=item.nombre %>">
+                        </td>
 
+                        <td>
+                            <div type="text" id="<%=item.id%>apellido1" style.display = 'inline' > <%=item.apellido %> </div>
+                            <input name="apellido1" id="<%=item.id%>apellido" class="form-control" type="hidden" value="<%=item.apellido %>">
+                        </td>
+                        <td>
+                            <div type="text" id="<%=item.id%>alias1" style.display = 'inline' > <%=item.alias %> </div>
+                            <input name="alias1" id="<%=item.id%>alias" class="form-control" type="hidden" value="<%=item.alias %>">
+                        </td>
+                        <td>
+                            <div type="text" id="<%=item.id%>telefono1" style.display = 'inline' > <%=item.telefono %> </div>
+                            <input name="telefono1" id="<%=item.id%>telefono" class="form-control" type="hidden" value="<%=item.telefono %>">
+                        </td>
+                        <td>
+                            <div type="text" id="<%=item.id%>direccion1" style.display = 'inline' ><%=item.direccion %> </div>
+                            <input name="direccion1" id="<%=item.id%>direccion" class="form-control" type="hidden" value="<%=item.direccion %>">
+                        </td>
+                        <td>
+                            <div type="text" id="<%=item.id%>email1" style.display = 'inline' > <%=item.email %> </div>
+                            <input name="email1" id="<%=item.id%>email" class="form-control" type="hidden" value="<%=item.email %>">
+                        </td>
+                        <td><%=_.formatdate(item.fechacreacion) %></td>
+                        <td><%=_.formatdate(item.fechamodificacion) %></td>
+                    <td>
+                        <a class="glyphicon glyphicon-trash" id="eliminar" role="button" data-id="<%=item.id%>"></a>
+                        <a class="glyphicon glyphicon-edit" id="editar" role="button" data-id="<%=item.id%>"></a>
+                        <a class="glyphicon glyphicon-ok" id="actualizar"   role="button" data-id="<%=item.id%>"></a>
+                    </td>
                     </tr>
                     <% }); %>
             </tbody>

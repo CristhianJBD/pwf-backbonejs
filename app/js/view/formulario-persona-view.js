@@ -50,10 +50,12 @@ var FormularioPersonaView = Backbone.View.extend({
         this.$el.find("[name]").each(function () {
             data[this.name] = this.value;
         });
+        var thiz = this;
         var model = new PersonaModel(data);
         model.save(null,{
             success: function(model, response) {
                 alert("Se agregó correctamente!");
+                thiz.collection.fetch();
 
             },
             error: function(model, response) {
