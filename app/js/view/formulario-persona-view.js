@@ -79,6 +79,14 @@ var FormularioPersonaView = Backbone.View.extend({
                     alert("Se agregó correctamente!");
                     thiz.collection.fetch();
 
+                    //limpiar campos
+                    document.getElementById("nombre").value="";
+                    document.getElementById("apellido").value="";
+                    document.getElementById("alias").value="";
+                    document.getElementById("telefono").value="";
+                    document.getElementById("direccion").value="";
+                    document.getElementById("email").value="";
+
                 },
                 error: function (model, response) {
                     alert("Ha ocurrido un error!");
