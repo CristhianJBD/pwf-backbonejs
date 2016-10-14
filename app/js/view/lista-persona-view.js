@@ -53,25 +53,18 @@ var ListaPersonaView = Backbone.View.extend({
         if(opcion == true) {
         e.preventDefault();
         var id = $(e.currentTarget).data("id");
-        this.selectedPersona = this.collection.get(id);
+        var selec = this.collection.get(id);
 
-        var selec = this.collection.get(this.selectedPersona);
-            var thiz = this;
         selec.destroy({
-
             dataType : 'text',
-            success: function(model, response, options) {
+            success: function() {
                 alert("Se eliminó correctamente!");
                 window.location.reload();
-
             },
-            error: function(model, response, options) {
+            error: function() {
                 alert("Ha ocurrido un error!");
                 window.location.reload();
-
-
             }
-
         });
 
         }else {return false;}
@@ -82,85 +75,60 @@ var ListaPersonaView = Backbone.View.extend({
     editar: function(e){
         e.preventDefault();
         var id = $(e.currentTarget).data("id");
-        this.selectedPersona = this.collection.get(id);
 
-        var a = document.getElementById(id+"nombre");
-        a.type= "text";
-        var aa = document.getElementById(id+"nombre1");
-        aa.style='display:none;';
+        document.getElementById(id+"nombre").type="text";
+        document.getElementById(id+"nombreActual").style = 'display:none;';
 
-        var b = document.getElementById(id+"apellido");
-        b.type= "text";
-        var bb = document.getElementById(id+"apellido1");
-        bb.style='display:none;';
+        document.getElementById(id+"apellido").type="text";
+        document.getElementById(id+"apellidoActual").style = 'display:none;';
 
-        var c = document.getElementById(id+"alias");
-        c.type= "text";
-        var cc = document.getElementById(id+"alias1");
-        cc.style='display:none;';
+        document.getElementById(id+"alias").type="text";
+        document.getElementById(id+"aliasActual").style = 'display:none;';
 
-        var d = document.getElementById(id+"telefono");
-        d.type= "text";
-        var dd = document.getElementById(id+"telefono1");
-        dd.style='display:none;';
+        document.getElementById(id+"telefono").type="text";
+        document.getElementById(id+"telefonoActual").style = 'display:none;';
 
-        var e = document.getElementById(id+"direccion");
-        e.type= "text";
-        var ee = document.getElementById(id+"direccion1");
-        ee.style='display:none;';
+        document.getElementById(id+"direccion").type="text";
+        document.getElementById(id+"direccionActual").style = 'display:none;';
 
-        var f = document.getElementById(id+"email");
-        f.type= "text";
-        var ff = document.getElementById(id+"email1");
-        ff.style='display:none;';
+        document.getElementById(id+"email").type="text";
+        document.getElementById(id+"emailActual").style = 'display:none;';
 
-        var g = document.getElementById("actualizar");
-        g.style.display = "block";
-
-
+        document.getElementById("actualizar").style.display = "block";
 
     },
 
-    actualizar: function(e){
+    actualizar: function(e) {
         e.preventDefault();
         var id = $(e.currentTarget).data("id");
-        this.selectedPersona = this.collection.get(id);
 
-        nombre = document.getElementById(id+"nombre");
-        apellido = document.getElementById(id+"apellido");
-        alias = document.getElementById(id+"alias");
-        telefono = document.getElementById(id+"telefono");
-        direccion = document.getElementById(id+"direccion");
-        email = document.getElementById(id+"email");
+        var persona = new PersonaModel({id});
+            persona.fetch({
+                success: function (response) {
+                    response.set("nombre", document.getElementById(id + "nombre").value);
+                    response.set("apellido", document.getElementById(id + "apellido").value);
+                    response.set("alias", document.getElementById(id + "alias").value);
+                    response.set("telefono", document.getElementById(id + "telefono").value);
+                    response.set("direccion", document.getElementById(id + "direccion").value);
+                    response.set("email", document.getElementById(id + "email").value);
 
-        var persona = new PersonaModel({ id });
-        persona.fetch({
-            success: function (response) {
-                console.log("Found the book: " + response.get("nombre"));
-                // Let us update this retreived book now (doing it in the callback) [UPDATE]
-                response.set("nombre", nombre.value);
-                response.set("apellido", apellido.value);
-                response.set("alias", alias.value);
-                response.set("telefono", telefono.value);
-                response.set("direccion", direccion.value);
-                response.set("email", email.value);
+                    response.save({}, {
+                        success: function () {
+                            alert("Se modifico el usuario correctamente");
+                            window.location.reload();
+                        },
+                        error: function () {
+                            alert("Ocurrio un error al modificar el usuario");
+                            window.location.reload();
+                        }
+                    });
+                }
 
-                response.save({}, {
-                    success: function (model, respose, options) {
-                        alert("Se modifico el usuario correctamente");
-                        window.location.reload();
-                    },
-                    error: function (model, xhr, options) {
-                        alert("Ocurrio un error al modificar el usuario");
-                        window.location.reload();
-                    }
-                });
-            }
-        });
+            });
 
 
+        }
 
-    },
 
 
 });

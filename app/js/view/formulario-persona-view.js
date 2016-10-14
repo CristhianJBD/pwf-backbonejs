@@ -50,22 +50,43 @@ var FormularioPersonaView = Backbone.View.extend({
         this.$el.find("[name]").each(function () {
             data[this.name] = this.value;
         });
+
+
+        //validación
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if(data["nombre"]==""){
+            alert("El campo de nombre no puede estar vacío");
+            return false;
+        }else if(data["apellido"]==""){
+            alert("El campo de apellido no puede estar vacío");
+            return false;
+        }else if(data["telefono"]==""){
+            alert("El campo de telefono no puede estar vacío");
+            return false;
+        }else if(data["email"]=="") {
+            alert("El campo de email no puede estar vacío");
+            return false;
+        }else if (reg.test(data["email"])==false){
+            alert("El campo de email no es valido, se debe seguir el siguiente formato de ejemplo: example@gmail.com");
+            return false;
+        }
+
+
         var thiz = this;
         var model = new PersonaModel(data);
-        model.save(null,{
-            success: function(model, response) {
-                alert("Se agregó correctamente!");
-                thiz.collection.fetch();
+            model.save(null, {
+                success: function (model, response) {
+                    alert("Se agregó correctamente!");
+                    thiz.collection.fetch();
 
-            },
-            error: function(model, response) {
-                alert("Ha ocurrido un error!");
-            }
+                },
+                error: function (model, response) {
+                    alert("Ha ocurrido un error!");
+                }
 
-        });
+            });
 
-
-    }
+        }
     
 
 
